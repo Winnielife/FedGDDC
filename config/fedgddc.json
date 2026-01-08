@@ -1,0 +1,51 @@
+{
+    "data_setups":{
+        "root": "./data",
+        "dataset_name": "cifar10",
+        "batch_size": 50,
+        "n_clients": 100,
+        "partition": {
+            "method": "lda",
+            "alpha": 0.1
+
+        }
+    },
+    "train_setups":{
+        "algo": {
+            "name": "fedavg",
+            "params": {
+                "momentum_task": 0.9,
+                "delta": 0.05,
+                "weight_decay": 5e-4,
+                "lr": 0.01,
+                "feature_extractor": "torchvision",
+
+                "reassignment_interval": 5
+            }
+        },
+        "scenario": {
+            "n_rounds": 200,
+            "sample_ratio": 0.1,
+            "local_epochs": 10,
+            "device": "cuda:0"
+        },
+        "model":{
+            "name": "resnet",
+            "params": {}
+        },
+        "optimizer":{
+            "params": {"lr": 0.01, "momentum":0.9, "weight_decay": 5e-4}
+        },
+        "scheduler":{
+            "enabled": true,
+            "name": "step",
+            "params": {"gamma":0.99, "step_size": 1}
+        },
+        "seed": 2022
+    },
+    "wandb_setups":{
+        "project": "NeurIPS2022",
+        "group": "fedavg",
+        "name": "fedavg"
+    }
+}
